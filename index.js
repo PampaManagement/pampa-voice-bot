@@ -51,7 +51,7 @@ new SlashCommandBuilder()
       .setDescription('What the bot should say')
       .setRequired(true)
   )
-    )
+    
 ].map(command => command.toJSON());
 
 client.once('ready', async () => {
