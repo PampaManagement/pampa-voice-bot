@@ -102,7 +102,7 @@ if (voiceOption === 'clovis') {
       },
       data: {
   text,
-  model_id: 'eleven_v3',
+model_id: voiceOption === 'clovis' ? 'eleven_multilingual_v2' : 'eleven_v3',
   voice_settings: {
     stability: 0.4,
     similarity_boost: 0.85,
