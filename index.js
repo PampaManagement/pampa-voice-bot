@@ -76,10 +76,9 @@ client.on('interactionCreate', async interaction => {
 
 await interaction.deferReply();
 
-const rawText = interaction.options.getString('text');
-const text = enhanceText(rawText);
-
 const voiceOption = interaction.options.getString('voice');
+const rawText = interaction.options.getString('text');
+const text = voiceOption === 'clovis' ? rawText : enhanceText(rawText);
 
 let selectedVoiceId;
 
