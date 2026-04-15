@@ -36,7 +36,7 @@ const client = new Client({
 
 const commands = [
 new SlashCommandBuilder()
-  .setName('speak')
+  .setName('speak2')
   .setDescription('Generate a voice message')
   .addStringOption(option =>
     option.setName('voice')
