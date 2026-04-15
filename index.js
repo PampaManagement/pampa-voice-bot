@@ -41,7 +41,7 @@ new SlashCommandBuilder()
   .addStringOption(option =>
     option.setName('voice')
       .setDescription('Choose the voice')
-      .setRequired(false)
+      .setRequired(true)
       .addChoices(
         { name: 'Felicity', value: 'felicity' },
         { name: 'Clovis', value: 'clovis' }
