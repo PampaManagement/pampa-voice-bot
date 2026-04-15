@@ -35,13 +35,22 @@ const client = new Client({
 });
 
 const commands = [
-  new SlashCommandBuilder()
-    .setName('speak')
-    .setDescription('Generate a voice message')
-    .addStringOption(option =>
-      option.setName('text')
-        .setDescription('What the bot should say')
-        .setRequired(true)
+new SlashCommandBuilder()
+  .setName('speak')
+  .setDescription('Generate a voice message')
+  .addStringOption(option =>
+    option.setName('voice')
+      .setDescription('Choose the voice')
+      .setRequired(false)
+      .addChoices(
+        { name: 'Felicity', value: 'felicity' },
+        { name: 'Clovis', value: 'clovis' }
+      ))
+  .addStringOption(option =>
+    option.setName('text')
+      .setDescription('What the bot should say')
+      .setRequired(true)
+  )
     )
 ].map(command => command.toJSON());
 
@@ -69,10 +78,23 @@ client.on('interactionCreate', async interaction => {
 const text = enhanceText(rawText);
   await interaction.deferReply();
 
+const voiceOption = interaction.options.getString('voice');
+
+let selectedVoiceId;
+
+if (voiceOption === 'clovis') {
+  selectedVoiceId = process.env.CLOVIS_VOICE_ID;
+} else {
+  selectedVoiceId = process.env.VOICE_ID;
+}
+
+
+  
+
   try {
     const response = await axios({
       method: 'POST',
-      url: `https://api.elevenlabs.io/v1/text-to-speech/${process.env.VOICE_ID}`,
+      url: `https://api.elevenlabs.io/v1/text-to-speech/${selectedVoiceId}`,
       headers: {
         'xi-api-key': process.env.ELEVENLABS_API_KEY,
         'Content-Type': 'application/json'
