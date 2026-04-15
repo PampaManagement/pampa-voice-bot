@@ -72,11 +72,12 @@ client.once('ready', async () => {
 
 client.on('interactionCreate', async interaction => {
   if (!interaction.isChatInputCommand()) return;
-  if (interaction.commandName !== 'speak') return;
+  if (interaction.commandName !== 'speak2') return;
 
-  const rawText = interaction.options.getString('text');
+await interaction.deferReply();
+
+const rawText = interaction.options.getString('text');
 const text = enhanceText(rawText);
-  await interaction.deferReply();
 
 const voiceOption = interaction.options.getString('voice');
 
