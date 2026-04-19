@@ -45,6 +45,7 @@ new SlashCommandBuilder()
       .addChoices(
         { name: 'Felicity', value: 'felicity' },
         { name: 'Clovis', value: 'clovis' }
+        { name: 'Sarah', value: 'sarah' }
       ))
   .addStringOption(option =>
     option.setName('text')
@@ -84,6 +85,8 @@ let selectedVoiceId;
 
 if (voiceOption === 'clovis') {
   selectedVoiceId = process.env.CLOVIS_VOICE_ID;
+} else if (voiceOption === 'sarah') {
+  selectedVoiceId = process.env.SARAH_VOICE_ID;
 } else {
   selectedVoiceId = process.env.FELICITY_VOICE_ID;
 }
