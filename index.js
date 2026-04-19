@@ -44,7 +44,7 @@ new SlashCommandBuilder()
       .setRequired(true)
       .addChoices(
         { name: 'Felicity', value: 'felicity' },
-        { name: 'Clovis', value: 'clovis' }
+        { name: 'Clovis', value: 'clovis' },
         { name: 'Sarah', value: 'sarah' }
       ))
   .addStringOption(option =>
