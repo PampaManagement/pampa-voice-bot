@@ -85,7 +85,7 @@ let selectedVoiceId;
 if (voiceOption === 'clovis') {
   selectedVoiceId = process.env.CLOVIS_VOICE_ID;
 } else {
-  selectedVoiceId = process.env.VOICE_ID;
+  selectedVoiceId = process.env.FELICITY_VOICE_ID;
 }
 
 
