@@ -88,6 +88,8 @@ if (voiceOption === 'clovis') {
   selectedVoiceId = process.env.CLOVIS_VOICE_ID;
 } else if (voiceOption === 'sarah') {
   selectedVoiceId = process.env.SARAH_VOICE_ID;
+} else if (voiceOption === 'dallas') {
+  selectedVoiceId = process.env.DALLAS_VOICE_ID;
 } else {
   selectedVoiceId = process.env.FELICITY_VOICE_ID;
 }
