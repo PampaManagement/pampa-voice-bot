@@ -43,10 +43,11 @@ new SlashCommandBuilder()
       .setDescription('Choose the voice')
       .setRequired(true)
       .addChoices(
-        { name: 'Felicity', value: 'felicity' },
-        { name: 'Clovis', value: 'clovis' },
-        { name: 'Sarah', value: 'sarah' }
-      ))
+  { name: 'Felicity', value: 'felicity' },
+  { name: 'Clovis', value: 'clovis' },
+  { name: 'Sarah', value: 'sarah' },
+  { name: 'Dallas', value: 'dallas' }
+))
   .addStringOption(option =>
     option.setName('text')
       .setDescription('What the bot should say')
