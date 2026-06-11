@@ -2,38 +2,30 @@ require('dotenv').config();
 const { Client, GatewayIntentBits, SlashCommandBuilder, REST, Routes } = require('discord.js');
 const axios = require('axios');
 const fs = require('fs');
-
 function enhanceText(input) {
   // Basic emotional enhancer for Eleven v3
-
   const flirtyPrefixes = [
     "[whispering] [flirty]",
     "[softly] [playful]",
     "[happy] [teasing]",
     "[gentle laugh]"
   ];
-
   const endings = [
     "[chuckles]",
     "[soft laugh]",
     "[giggles]",
     ""
   ];
-
   // Random selection
   const prefix =
     flirtyPrefixes[Math.floor(Math.random() * flirtyPrefixes.length)];
-
   const ending =
     endings[Math.floor(Math.random() * endings.length)];
-
   return `${prefix} ${input} ${ending}`;
 }
-
 const client = new Client({
   intents: [GatewayIntentBits.Guilds]
 });
-
 const commands = [
 new SlashCommandBuilder()
   .setName('speak2')
@@ -46,7 +38,8 @@ new SlashCommandBuilder()
   { name: 'Felicity', value: 'felicity' },
   { name: 'Clovis', value: 'clovis' },
   { name: 'Sarah', value: 'sarah' },
-  { name: 'Dallas', value: 'dallas' }
+  { name: 'Dallas', value: 'dallas' },
+  { name: 'Kalia', value: 'kalia' }
 ))
   .addStringOption(option =>
     option.setName('text')
@@ -55,12 +48,9 @@ new SlashCommandBuilder()
   )
     
 ].map(command => command.toJSON());
-
 client.once('ready', async () => {
   console.log(`Logged in as ${client.user.tag}`);
-
   const rest = new REST({ version: '10' }).setToken(process.env.DISCORD_TOKEN);
-
   try {
     await rest.put(
       Routes.applicationCommands(client.user.id),
@@ -71,32 +61,26 @@ client.once('ready', async () => {
     console.error(error);
   }
 });
-
 client.on('interactionCreate', async interaction => {
   if (!interaction.isChatInputCommand()) return;
   if (interaction.commandName !== 'speak2') return;
-
 await interaction.deferReply();
-
 const voiceOption = interaction.options.getString('voice');
 const rawText = interaction.options.getString('text');
 const text = voiceOption === 'clovis' ? rawText : enhanceText(rawText);
-
 let selectedVoiceId;
-
 if (voiceOption === 'clovis') {
   selectedVoiceId = process.env.CLOVIS_VOICE_ID;
 } else if (voiceOption === 'sarah') {
   selectedVoiceId = process.env.SARAH_VOICE_ID;
 } else if (voiceOption === 'dallas') {
   selectedVoiceId = process.env.DALLAS_VOICE_ID;
+} else if (voiceOption === 'kalia') {
+  selectedVoiceId = process.env.KALIA_VOICE_ID;
 } else {
   selectedVoiceId = process.env.FELICITY_VOICE_ID;
 }
-
-
   
-
   try {
     const response = await axios({
       method: 'POST',
@@ -117,9 +101,7 @@ model_id: voiceOption === 'clovis' ? 'eleven_multilingual_v2' : 'eleven_v3',
 },
       responseType: 'arraybuffer'
     });
-
     fs.writeFileSync('output.mp3', response.data);
-
     await interaction.editReply({
       content: "Here's your audio:",
       files: ['output.mp3']
@@ -129,5 +111,4 @@ model_id: voiceOption === 'clovis' ? 'eleven_multilingual_v2' : 'eleven_v3',
     await interaction.editReply('Error generating voice.');
   }
 });
-
 client.login(process.env.DISCORD_TOKEN);
