@@ -23,6 +23,17 @@ function enhanceText(input) {
     endings[Math.floor(Math.random() * endings.length)];
   return `${prefix} ${input} ${ending}`;
 }
+function enhanceReels(input) {
+  // Clean enhancer for IG reels — no flirty tags, no giggles
+  const prefixes = [
+    "[clearly]",
+    "[confident]",
+    "[upbeat]",
+    ""
+  ];
+  const prefix = prefixes[Math.floor(Math.random() * prefixes.length)];
+  return `${prefix} ${input}`;
+}
 const client = new Client({
   intents: [GatewayIntentBits.Guilds]
 });
@@ -68,7 +79,14 @@ client.on('interactionCreate', async interaction => {
 await interaction.deferReply();
 const voiceOption = interaction.options.getString('voice');
 const rawText = interaction.options.getString('text');
-const text = voiceOption === 'clovis' ? rawText : enhanceText(rawText);
+let text;
+if (voiceOption === 'clovis') {
+  text = rawText;
+} else if (voiceOption === 'mark') {
+  text = enhanceReels(rawText);
+} else {
+  text = enhanceText(rawText);
+}
 let selectedVoiceId;
 if (voiceOption === 'clovis') {
   selectedVoiceId = process.env.CLOVIS_VOICE_ID;
