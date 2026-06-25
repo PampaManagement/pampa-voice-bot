@@ -51,6 +51,7 @@ new SlashCommandBuilder()
   { name: 'Sarah', value: 'sarah' },
   { name: 'Dallas', value: 'dallas' },
   { name: 'Kalia', value: 'kalia' },
+  { name: 'Emily', value: 'emily' },
   { name: 'IG reels', value: 'mark' }
 ))
   .addStringOption(option =>
@@ -96,6 +97,8 @@ if (voiceOption === 'clovis') {
   selectedVoiceId = process.env.DALLAS_VOICE_ID;
 } else if (voiceOption === 'kalia') {
   selectedVoiceId = process.env.KALIA_VOICE_ID;
+} else if (voiceOption === 'emily') {
+  selectedVoiceId = process.env.EMILY_VOICE_ID;
 } else if (voiceOption === 'mark') {
   selectedVoiceId = process.env.MARK_VOICE_ID;
 } else {
